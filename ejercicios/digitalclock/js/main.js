@@ -14,3 +14,26 @@
  *  - night: a partir de las 21:00.
  *
  */
+'use strict';
+const body = document.body;
+
+setInterval(() => {
+    const reloj = new Date();
+    let hour = reloj.getHours();
+    let minutes = reloj.getMinutes();
+    let seconds = reloj.getSeconds();
+
+    if (hour >= 7 && hour < 13) {
+        body.classList.add('morning');
+    } else if (hour >= 13 && hour < 21) {
+        body.classList.remove('morning'), body.classList.add('afternoon');
+    } else {
+        body.classList.remove('afternoon'), body.classList.add('night');
+    }
+
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    hour = hour < 10 ? '0' + hour : hour;
+
+    console.log(`${hour}:${minutes}:${seconds}`);
+}, 1000);

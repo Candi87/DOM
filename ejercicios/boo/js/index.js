@@ -20,14 +20,14 @@
  */
 'use strict';
 
-console.log(window.innerHeight);
-console.log(window.innerWidth);
-
 const { body } = document;
 
 const div = document.querySelector('div');
 
 const divProp = div.getBoundingClientRect();
+
+console.log(window.innerHeight);
+console.log(window.innerWidth);
 
 const divHeight = divProp.height;
 const divWidth = divProp.width;
@@ -40,7 +40,6 @@ function getRandom(max) {
 }
 setInterval(() => {
     //cambiamos a boo de posicion
-    divProp.style;
 
     //cambiamos el color del body
 
