@@ -18,3 +18,33 @@
  *                 requerirá a mayores que cambies cositas en el código.
  *
  */
+'use strict';
+
+console.log(window.innerHeight);
+console.log(window.innerWidth);
+
+const { body } = document;
+
+const div = document.querySelector('div');
+
+const divProp = div.getBoundingClientRect();
+
+const divHeight = divProp.height;
+const divWidth = divProp.width;
+
+const diffH = innerHeight - divHeight;
+const diffW = innerWidth - divWidth;
+
+function getRandom(max) {
+    return Math.round(Math.random() * max);
+}
+setInterval(() => {
+    //cambiamos a boo de posicion
+    divProp.style;
+
+    //cambiamos el color del body
+
+    body.style.backgroundColor = `rgb(${getRandom(255)}, ${getRandom(
+        255
+    )}, ${getRandom(255)})`;
+}, 1000);
