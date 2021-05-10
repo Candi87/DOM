@@ -40,3 +40,35 @@ const temperaturas = [
         max: 29,
     },
 ];
+
+//creamos arrays de el objeto temperaturas
+
+const ciudades = temperaturas.map(function (temperatura) {
+    return temperatura.city;
+});
+console.log(ciudades);
+
+const tempMax = temperaturas.map(function (temperatura) {
+    return temperatura.min;
+});
+console.log(tempMax);
+
+const tempMin = temperaturas.map(function (temperatura) {
+    return temperatura.max;
+});
+console.log(tempMin);
+
+// const tbody = document.querySelector('tbody');
+const tr = document.createElement('tr');
+// const td = document.createElement('td');
+const frag = document.createDocumentFragment();
+
+for (let i = 0; i < ciudades.length; i++) {
+    const ciudad = ciudades[i];
+
+    const td = document.createElement('td');
+    td.textcontent = ciudad;
+    frag.append(td);
+    console.log(ciudad);
+}
+tr.append(frag);
