@@ -14,53 +14,47 @@
  *  - night: a partir de las 21:00.
  *
  */
+
 'use strict';
+
+import { formatHour } from './helpers.js';
+
+// Seleccionamos todos los nodos que queremos modificar.
+const h1 = document.querySelector('h1');
+const h2 = document.querySelector('h2');
 const body = document.body;
 
-let months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-];
-let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
 setInterval(() => {
-    const reloj = new Date();
-    let hour = reloj.getHours();
-    let minutes = reloj.getMinutes();
-    let seconds = reloj.getSeconds();
-    let day = days[reloj.getDay()];
-    let month = months[reloj.getMonth()];
-    let year = reloj.getFullYear();
+    // Obtenemos la fecha actual.
+    const now = new Date();
 
-    const h1 = document.querySelector('h1');
-    const h2 = document.querySelector('h2');
+    // Obtenemos la hora, los minutos y los segundos.
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
 
-    if (hour >= 7 && hour < 13) {
+    // Asignamos la hora al h1.
+    h1.textContent = formatHour(hours, minutes, seconds);
+
+    // Obtener el día del mes, el mes y el año.
+    const date = now.toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    });
+
+    // Asignamos la fecha al h2.
+    h2.textContent = date;
+
+    // Cambiamos la clase del body en función de la hora.
+    if (hours >= 7 && hours < 13) {
+        body.classList.remove('night');
         body.classList.add('morning');
-    } else if (hour >= 13 && hour < 21) {
-        body.classList.remove('morning'), body.classList.add('afternoon');
-    } else {
-        body.classList.remove('afternoon'), body.classList.add('night');
+    } else if (hours >= 13 && hours < 21) {
+        body.classList.remove('morning');
+        body.classList.add('afternoon');
+    } else if (hours >= 21 || hours < 7) {
+        body.classList.remove('afternoon');
+        body.classList.add('night');
     }
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-    hour = hour < 10 ? '0' + hour : hour;
-
-    let points = ':';
-    if (seconds % 2 === 0){
-        else {points =' '}
-    };
-
-    h1.textContent = `${hour} ${points} ${minutes} ${points} ${seconds}`;
-    h2.textContent = `${day} ${month} ${year}`;
 }, 1000);

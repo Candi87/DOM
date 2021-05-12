@@ -3,13 +3,13 @@
  * este array de ciudades. Tendrás que usar las siguientes
  * clases para cambiar el color de fondo de cada temperatura.
  *
- *  - lower: temp. menor que 4: fondo azul.
+ *  - lower: temp. menor que 4 (fondo azul).
  *
- *  - low: temp. entre 4 y 20: fondo verde
+ *  - low: temp. entre 4 y 20 (fondo verde).
  *
- *  - medium: temp. entre 20 y 30: fondo naranja
+ *  - medium: temp. entre 20 y 30 (fondo naranja).
  *
- *  - high: temp. mayor de 30: fondo rojo
+ *  - high: temp. mayor de 30 (fondo rojo).
  *
  */
 
@@ -41,34 +41,82 @@ const temperaturas = [
     },
 ];
 
-//creamos arrays de el objeto temperaturas
+// Seleccionamos el tbody.
+const tbody = document.querySelector('table#temperaturas > tbody');
 
-const ciudades = temperaturas.map(function (temperatura) {
-    return temperatura.city;
-});
-console.log(ciudades);
-
-const tempMax = temperaturas.map(function (temperatura) {
-    return temperatura.min;
-});
-console.log(tempMax);
-
-const tempMin = temperaturas.map(function (temperatura) {
-    return temperatura.max;
-});
-console.log(tempMin);
-
-// const tbody = document.querySelector('tbody');
-const tr = document.createElement('tr');
-// const td = document.createElement('td');
+// Creamos un fragmento de documento.
 const frag = document.createDocumentFragment();
 
-for (let i = 0; i < ciudades.length; i++) {
-    const ciudad = ciudades[i];
-
-    const td = document.createElement('td');
-    td.textcontent = ciudad;
-    frag.append(td);
-    console.log(ciudad);
+// Función que recibe una temperatura y retorna un string.
+function getTemp(temp) {
+    if (temp < 4) {
+        return 'lower';
+    } else if (temp >= 4 && temp < 20) {
+        return 'low';
+    } else if (temp >= 20 && temp < 30) {
+        return 'medium';
+    } else if (temp >= 30) {
+        return 'high';
+    }
 }
-tr.append(frag);
+
+/**
+ * ################
+ * ## Solución 1 ##
+ * ################
+ */
+
+/* // Recorremos el array de temperaturas.
+for (const city of temperaturas) {
+    // Creamos el elemento tr.
+    const tr = document.createElement('tr');
+
+    // Creamos los tres td.
+    const cityTD = document.createElement('td');
+    const minTD = document.createElement('td');
+    const maxTD = document.createElement('td');
+
+    //Asignamosla el contenido a los tres td.
+    cityTD.textContent = city.city;
+    minTD.textContent = city.min;
+    maxTD.textContent = city.max;
+
+    // Asignamos una clase a las temperaturas.
+    minTD.classList.add(getTemp(city.min));
+    maxTD.className = getTemp(city.max);
+
+    // Agregamos los tres td como hijos del tr.
+    tr.append(cityTD, minTD, maxTD);
+
+    // Agregamosel tr al fragmento.
+    frag.append(tr);
+}
+
+// Agregamos el fragmento al tbody.
+tbody.append(frag);
+ */
+
+/**
+ * ################
+ * ## Solución 2 ##
+ * ################
+ */
+
+// Recorremos el array de temperaturas.
+for (const city of temperaturas) {
+    // Creamos el elemento tr.
+    const tr = document.createElement('tr');
+
+    // Introducimos la información en el tr.
+    tr.innerHTML = `
+        <td>${city.city}</td>
+        <td class=${getTemp(city.min)}>${city.min}</td>
+        <td class=${getTemp(city.max)}>${city.max}</td>
+    `;
+
+    // Insertamos el tr en el fragmento.
+    frag.append(tr);
+}
+
+// Insertamos el fragmento en el tbody.
+tbody.append(frag);

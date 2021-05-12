@@ -18,32 +18,43 @@
  *                 requerirá a mayores que cambies cositas en el código.
  *
  */
-'use strict';
 
-const { body } = document;
+// Seleccionamos los div.
+const booArray = document.querySelectorAll('div.boo');
 
-const div = document.querySelector('div');
+// Seleccionamos el body.
+const body = document.body;
 
-const divProp = div.getBoundingClientRect();
+// Función que retorna un valor entero entre 0 y maxNum.
+const getRandom = (max, min = 0) =>
+    Math.floor(Math.random() * (max + 1 - min) + min);
 
-console.log(window.innerHeight);
-console.log(window.innerWidth);
+// Recorremos el array de boo.
+for (const boo of booArray) {
+    // Intervalo que se repite cada segundo.
+    setInterval(() => {
+        // Obtenemos mediante destructuring el alto y el ancho de boo.
+        const {
+            height: booHeight,
+            width: booWidth,
+        } = boo.getBoundingClientRect();
 
-const divHeight = divProp.height;
-const divWidth = divProp.width;
+        // Obtenemos la altura máxima.
+        const maxHeight = window.innerHeight - booHeight;
 
-const diffH = innerHeight - divHeight;
-const diffW = innerWidth - divWidth;
+        // Obtenemos el ancho máximo.
+        const maxWidth = window.innerWidth - booWidth;
 
-function getRandom(max) {
-    return Math.round(Math.random() * max);
+        // Generamos una nueva posición aleatoria.
+        boo.style.cssText = `
+        font-size: ${getRandom(150, 80)}px;
+        top: ${getRandom(maxHeight)}px;
+        left: ${getRandom(maxWidth)}px;
+    `;
+
+        // Cambiamos el color de fondo del body.
+        body.style.backgroundColor = `rgb(${getRandom(255)}, ${getRandom(
+            255
+        )}, ${getRandom(255)})`;
+    }, 1000);
 }
-setInterval(() => {
-    //cambiamos a boo de posicion
-
-    //cambiamos el color del body
-
-    body.style.backgroundColor = `rgb(${getRandom(255)}, ${getRandom(
-        255
-    )}, ${getRandom(255)})`;
-}, 1000);

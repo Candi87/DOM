@@ -4,24 +4,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Temperaturas</title>
+  <title>Mini Twitter</title>
+
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 
 <body>
-  <section>
-    <table id="temperaturas">
-      <thead>
-        <tr>
-          <th>Ciudad</th>
-          <th>Min</th>
-          <th>Max</th>
-        </tr>
-      </thead>
-      <tbody>
 
-      </tbody>
-    </table>
+  <header>
+    <h1>Mini Twitter</h1>
+  </header>
+
+  <section>
+    <form name="twitter">
+      <input type="text" id="tweet" name="tweet" />
+      <button class="action">Enviar</button>
+    </form>
+
+    <ul id="tweets">
+
+    </ul>
   </section>
 
   <script type="module" src="./js/main.js"></script>
